@@ -70,15 +70,15 @@ handle_image() {
 
   case "$FZF_PREVIEW_IMAGE_HANDLER" in
   sixel)
-    chafa -f sixel -s "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" "$image" --animate false
+    chafa --format sixel --size "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" "$image" --animate false
     mediainfo "$image" # image related data appended after the image
     ;;
   kitty)
-    kitten icat --clear --transfer-mode=stream --unicode-placeholder --stdin=no --place="${FZF_PREVIEW_COLUMNS}x$((FZF_PREVIEW_LINES - 1))@0x0" "$image" | sed '$d' | sed $'$s/$/\e[m/'
+    chafa --format kitty --size "${FZF_PREVIEW_COLUMNS}x$((FZF_PREVIEW_LINES - 1))@0x0" "$image" --animate false --clear
     mediainfo "$image" # image related data appended after the image
     ;;
   symbols)
-    chafa -f symbols -s "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" "$image" --animate false
+    chafa --format symbols --size "${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}" "$image" --animate false
     mediainfo "$image" # image related data appended after the image
     ;;
   *)
